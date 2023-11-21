@@ -40,11 +40,14 @@
     function onYouTubeIframeAPIReady() {
 
       YouTubePlayerBridge.sendYouTubeIFrameAPIReady();
-            
+
+
+        var playerParams = <<injectedPlayerVars>>
+
     	player = new YT.Player('youTubePlayerDOM', {
     			
         height: '100%',
-    	  width: '100%',
+    	width: '100%',
     			
         events: {
     	    onReady: function(event) { YouTubePlayerBridge.sendReady() },
@@ -52,10 +55,17 @@
     		  onPlaybackQualityChange: function(event) { YouTubePlayerBridge.sendPlaybackQualityChange(event.data) },
     		  onPlaybackRateChange: function(event) { YouTubePlayerBridge.sendPlaybackRateChange(event.data) },
     		  onError: function(error) { YouTubePlayerBridge.sendError(error.data) },
-    		  onApiChange: function(event) { YouTubePlayerBridge.sendApiChange() }
+    		  onApiChange: function(event) {
+                if (playerParams["cc_load_policy"] === 1 && playerParams.hasOwnProperty("cc_lang_pref")) {
+                  if (typeof player.setOption === 'function') {
+                    player.setOption('captions', 'track', {languageCode: playerParams["cc_lang_pref"]})
+                  }
+                }
+                YouTubePlayerBridge.sendApiChange()
+    		  }
     	  },
 
-    	  playerVars: <<injectedPlayerVars>>
+    	  playerVars: playerParams
 
       });
     }
