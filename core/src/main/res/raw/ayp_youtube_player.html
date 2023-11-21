@@ -41,7 +41,7 @@
     function onYouTubeIframeAPIReady() {
 
       YouTubePlayerBridge.sendYouTubeIFrameAPIReady();
-            
+      var playerParams = <<injectedPlayerVars>>
       var youtubePlayerConfig = {
         height: '100%',
         width: '100%',
@@ -51,7 +51,14 @@
           onPlaybackQualityChange: function(event) { YouTubePlayerBridge.sendPlaybackQualityChange(event.data) },
           onPlaybackRateChange: function(event) { YouTubePlayerBridge.sendPlaybackRateChange(event.data) },
           onError: function(error) { YouTubePlayerBridge.sendError(error.data) },
-          onApiChange: function(event) { YouTubePlayerBridge.sendApiChange() }
+          onApiChange: function(event) {
+            if (playerParams["cc_load_policy"] === 1 && playerParams.hasOwnProperty("cc_lang_pref")) {
+              if (typeof player.setOption === 'function') {
+                player.setOption('captions', 'track', {languageCode: playerParams["cc_lang_pref"]})
+              }
+            }
+            YouTubePlayerBridge.sendApiChange()
+          }
         },
         playerVars: <<injectedPlayerVars>>
       };
