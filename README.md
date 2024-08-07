@@ -1,5 +1,7 @@
 # android-youtube-player
 
+Last .aar build made from branch "feature/programmatic_initialization" 07.08.2024
+
 [![Build Status](https://travis-ci.com/PierfrancescoSoffritti/android-youtube-player.svg?branch=master)](https://travis-ci.com/PierfrancescoSoffritti/android-youtube-player) 
 [![Android YouTube Player](https://www.appbrain.com/stats/libraries/shield/android_youtube_player.svg)](https://www.appbrain.com/stats/libraries/details/android_youtube_player/android-youtube-player) 
 [![android arsenal](https://img.shields.io/badge/Android%20Arsenal-android--youtube--player-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/4322) 
