@@ -65,7 +65,7 @@ class YouTubePlayerView(
 
     val typedArray = context.theme.obtainStyledAttributes(attrs, R.styleable.YouTubePlayerView, 0, 0)
 
-    enableAutomaticInitialization = typedArray.getBoolean(R.styleable.YouTubePlayerView_enableAutomaticInitialization, true)
+    enableAutomaticInitialization = typedArray.getBoolean(R.styleable.YouTubePlayerView_enableAutomaticInitialization, false)
     val autoPlay = typedArray.getBoolean(R.styleable.YouTubePlayerView_autoPlay, false)
     val handleNetworkEvents = typedArray.getBoolean(R.styleable.YouTubePlayerView_handleNetworkEvents, true)
     val videoId = typedArray.getString(R.styleable.YouTubePlayerView_videoId)
