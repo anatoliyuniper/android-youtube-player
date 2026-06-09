@@ -8,7 +8,10 @@ import org.json.JSONObject
  * Options used to configure the IFrame Player. All the options are listed here:
  * [IFrame player parameters](https://developers.google.com/youtube/player_parameters#Parameters)
  */
-class IFramePlayerOptions private constructor(private val playerOptions: JSONObject) {
+class IFramePlayerOptions private constructor(
+  private val playerOptions: JSONObject,
+  internal val coverMode: Boolean = false
+) {
 
   companion object {
     fun getDefault(context: Context) = Builder(context).controls(1).build()
@@ -41,6 +44,7 @@ class IFramePlayerOptions private constructor(private val playerOptions: JSONObj
     }
 
     private val builderOptions = JSONObject()
+    private var coverMode: Boolean = false
 
     init {
       addInt(AUTO_PLAY, 0)
@@ -54,8 +58,18 @@ class IFramePlayerOptions private constructor(private val playerOptions: JSONObj
       addInt(CC_LOAD_POLICY, 0)
     }
 
+    /**
+     * When enabled, the player iframe is scaled to fill the container, cropping the edges
+     * instead of showing black letterbox bars. Useful when the container is not 16:9.
+     * Default: false.
+     */
+    fun coverMode(enable: Boolean): Builder {
+      coverMode = enable
+      return this
+    }
+
     fun build(): IFramePlayerOptions {
-      return IFramePlayerOptions(builderOptions)
+      return IFramePlayerOptions(builderOptions, coverMode)
     }
 
     /**
